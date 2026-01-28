@@ -135,7 +135,7 @@ function App() {
           </div>
           
           <div className="hero-image-container">
-             <img src="/assets/image/Win.jpg" alt="Vinyl House" />
+             <img src="./assets/image/Win.jpg" alt="Vinyl House" />
           <div className="experience-box">
               <h3>10+</h3>
               <p>Years Experience</p>
