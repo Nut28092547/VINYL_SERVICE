@@ -1,0 +1,324 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* กันสโครลแนวนอน */
+  font-family: 'Prompt', sans-serif;
+  background-color: #ffffff;
+}
+
+.full-width-app {
+  width: 100vw;
+  min-height: 100vh;
+}
+
+/* Navbar เต็มความกว้าง */
+.navbar-v2 {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  z-index: 1000;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+.logo-v2 { font-size: 24px; font-weight: 700; cursor: pointer; color: #1e293b; }
+.logo-v2 span { color: #3b82f6; }
+
+.nav-right { display: flex; gap: 30px; align-items: center; }
+.nav-right button {
+  background: none; border: none; font-family: 'Prompt';
+  font-size: 16px; color: #64748b; cursor: pointer; transition: 0.3s;
+}
+.nav-right button.active { color: #3b82f6; font-weight: 600; }
+
+.login-v2 {
+  background: #1e293b !important;
+  color: white !important;
+  padding: 8px 20px;
+  border-radius: 8px;
+}
+
+/* Hero Section แบบแยกฝั่ง เต็มจอ */
+.home-full-viewport {
+  width: 100%;
+  padding-top: 70px;
+}
+
+.hero-split {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+.hero-text-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 80px;
+  background-color: #f8fafc;
+}
+
+.hero-inner-content { max-width: 600px; }
+
+.premium-tag {
+  color: #3b82f6; font-weight: 700; letter-spacing: 2px; font-size: 14px;
+}
+
+.hero-text-container h1 {
+  font-size: 4rem;
+  color: #0f172a;
+  margin: 20px 0;
+  line-height: 1.1;
+}
+
+.hero-text-container h1 span { color: #3b82f6; }
+
+.hero-text-container p {
+  font-size: 1.2rem;
+  color: #475569;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+/* Search Box แบบ Modern */
+.search-form-v2 {
+  display: flex;
+  background: white;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  margin-bottom: 40px;
+}
+
+.search-form-v2 input {
+  flex: 1; border: none; outline: none; padding: 10px 20px; font-family: 'Prompt'; font-size: 16px;
+}
+
+.search-form-v2 button {
+  background: #3b82f6; color: white; border: none;
+  padding: 10px 30px; border-radius: 10px; cursor: pointer;
+}
+
+/* ปุ่มหลัก */
+.main-action-btns { display: flex; gap: 20px; }
+.btn-primary-large {
+  background: #1e293b; color: white; border: none;
+  padding: 18px 35px; border-radius: 12px; font-weight: 600; font-size: 18px; cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-outline-large {
+  background: none; border: 2px solid #e2e8f0; color: #1e293b;
+  padding: 18px 35px; border-radius: 12px; font-weight: 600; font-size: 18px; cursor: pointer;
+}
+
+.btn-primary-large:hover { transform: translateY(-3px); background: #3b82f6; }
+
+/* ฝั่งรูปภาพ */
+.hero-image-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.experience-box {
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.experience-box h3 { font-size: 40px; color: #3b82f6; margin: 0; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero-split { flex-direction: column; height: auto; }
+  .hero-text-container { padding: 80px 40px; }
+  .hero-image-container { height: 400px; }
+  .hero-text-container h1 { font-size: 2.5rem; }
+}
+
+/* Modal Overlay */
+.fullscreen-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+  display: flex; align-items: center; justify-content: center; z-index: 2000;
+}
+
+.status-modal-v2 {
+  background: white; width: 90%; max-width: 500px; border-radius: 20px; padding: 30px;
+}
+
+.status-row-v2 {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px; border-bottom: 1px solid #f1f5f9;
+}
+
+.pill-v2 { padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: 600; }
+.pill-v2.done { background: #dcfce7; color: #166534; }
+.pill-v2.wait { background: #fef9c3; color: #854d0e; }@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: 'Prompt', sans-serif;
+  background-color: #ffffff;
+}
+
+.full-width-app {
+  width: 100vw;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar-v2 {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  z-index: 1000;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+/* Hero Section */
+.home-full-viewport {
+  width: 100%;
+  padding-top: 70px;
+}
+
+.hero-split {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 70px);
+}
+
+.hero-text-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10%; /* ปรับให้ยืดหยุ่นตามหน้าจอ */
+  background-color: #f8fafc;
+}
+
+.hero-inner-content { max-width: 550px; }
+
+.premium-tag {
+  color: #3b82f6;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+/* ✅ ปรับลดขนาด Font H1 ตรงนี้ */
+.hero-text-container h1 {
+  font-size: 2.8rem; /* ลดจาก 4rem เหลือ 2.8rem */
+  color: #0f172a;
+  margin: 15px 0;
+  line-height: 1.3; /* เพิ่มระยะบรรทัดให้อ่านง่ายขึ้น */
+}
+
+.hero-text-container h1 span { color: #3b82f6; }
+
+/* ✅ ปรับลดขนาด Font Paragraph */
+.hero-text-container p {
+  font-size: 1.1rem; /* ลดลงเล็กน้อยจาก 1.2rem */
+  color: #475569;
+  margin-bottom: 35px;
+  line-height: 1.6;
+}
+
+/* Search Box */
+.search-form-v2 {
+  display: flex;
+  background: white;
+  padding: 8px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  margin-bottom: 35px;
+  border: 1px solid #e2e8f0;
+}
+
+.search-form-v2 input {
+  flex: 1; border: none; outline: none; padding: 10px 15px; font-family: 'Prompt'; font-size: 15px;
+}
+
+.search-form-v2 button {
+  background: #3b82f6; color: white; border: none;
+  padding: 10px 25px; border-radius: 8px; cursor: pointer; font-weight: 600;
+}
+
+/* ✅ ปรับขนาดปุ่มให้สมดุลกับ Font ใหม่ */
+.main-action-btns { display: flex; gap: 15px; }
+
+.btn-primary-large {
+  background: #1e293b; color: white; border: none;
+  padding: 14px 28px; border-radius: 10px; font-weight: 600; font-size: 16px; cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-outline-large {
+  background: none; border: 2px solid #e2e8f0; color: #1e293b;
+  padding: 14px 28px; border-radius: 10px; font-weight: 600; font-size: 16px; cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-primary-large:hover { background: #3b82f6; transform: translateY(-2px); }
+.btn-outline-large:hover { border-color: #3b82f6; color: #3b82f6; }
+
+/* ฝั่งรูปภาพ (เต็มจอ) */
+.hero-image-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  .hero-split { flex-direction: column; height: auto; }
+  .hero-text-container { padding: 60px 30px; }
+  .hero-image-container { height: 350px; }
+  .hero-text-container h1 { font-size: 2.2rem; }
+}

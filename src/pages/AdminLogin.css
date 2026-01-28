@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+
+/* ล็อคหน้าจอให้เต็ม 100% */
+.admin-page-root {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Prompt', sans-serif;
+    z-index: 10000;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.admin-page-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* ฝั่งซ้าย: Visual Experience (สีเข้ม) */
+.visual-side {
+    flex: 1.2;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 80px;
+    color: white;
+}
+
+.visual-side::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80'); /* รูปออฟฟิศสวยๆ */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;
+}
+
+.visual-content {
+    position: relative;
+    z-index: 10;
+    max-width: 500px;
+}
+
+.brand-badge {
+    background: rgba(99, 102, 241, 0.2);
+    color: #818cf8;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    display: inline-block;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    margin-bottom: 25px;
+}
+
+.visual-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.visual-content h1 span {
+    display: block;
+    color: #818cf8;
+}
+
+.visual-content p {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    line-height: 1.6;
+}
+
+.visual-footer {
+    position: absolute;
+    bottom: 40px;
+    left: 80px;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+/* ฝั่งขวา: ฟอร์มล็อคอิน */
+.form-side {
+    flex: 0.8;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    position: relative;
+}
+
+.login-inner {
+    width: 100%;
+    max-width: 400px;
+}
+
+.back-link-btn {
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+    padding: 0;
+}
+
+.back-link-btn:hover { color: #4f46e5; }
+.back-link-btn .arrow { margin-right: 8px; transition: 0.3s; }
+.back-link-btn:hover .arrow { transform: translateX(-5px); }
+
+.login-header h2 {
+    font-size: 2.2rem;
+    color: #1e293b;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.login-header p {
+    color: #64748b;
+    margin-bottom: 40px;
+}
+
+/* Error Message */
+.error-message-box {
+    background: #fef2f2;
+    color: #b91c1c;
+    padding: 14px 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    border: 1px solid #fee2e2;
+    animation: shake 0.4s ease;
+}
+
+.error-message-box .icon { margin-right: 10px; }
+
+/* Form Elements */
+.admin-form .form-group {
+    margin-bottom: 25px;
+}
+
+.admin-form label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #475569;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.admin-form input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: 0.3s;
+    background: #f8fafc;
+    box-sizing: border-box;
+}
+
+.admin-form input:focus {
+    outline: none;
+    border-color: #4f46e5;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+.login-submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: #1e293b;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.login-submit-btn:hover {
+    background: #4f46e5;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px rgba(79, 70, 229, 0.25);
+}
+
+.login-submit-btn:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.form-help {
+    text-align: center;
+    margin-top: 30px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.form-help a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Animations */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .visual-side { display: none; }
+    .form-side { flex: 1; padding: 40px 20px; }
+}
