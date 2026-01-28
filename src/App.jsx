@@ -6,6 +6,9 @@ import CheckQueue from "./pages/CheckQueue";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
+// --- เพิ่มส่วนนี้เพื่อดึง URL จาก Environment Variable ---
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+
 function App() {
   const [page, setPage] = useState("home");
   const [isLoggedIn, setIsLoggedIn] = useState(false); // สำหรับ Admin
@@ -40,7 +43,8 @@ function App() {
     if (!searchPhone) return alert("กรุณากรอกเบอร์โทรศัพท์");
     setIsSearching(true);
     try {
-      const res = await fetch(`http://localhost:3000/api/my-booking/${searchPhone}`);
+      // --- แก้ไขจุดนี้: เปลี่ยนจาก localhost เป็น API_URL ---
+      const res = await fetch(`${API_URL}/my-booking/${searchPhone}`);
       const data = await res.json();
       setSearchResult(data); 
     } catch (err) {
@@ -73,6 +77,7 @@ function App() {
           }} 
           onSwitchToRegister={() => setPage("userRegister")}
           onBack={() => setPage("home")}
+          apiUrl={API_URL} // ส่ง apiUrl ไปให้ Component ลูกใช้ด้วย
         />
       );
     }
@@ -82,11 +87,12 @@ function App() {
         <Register 
           onSwitchToLogin={() => setPage("userLogin")} 
           onBack={() => setPage("home")} 
+          apiUrl={API_URL} // ส่ง apiUrl ไปให้ Component ลูกใช้ด้วย
         />
       );
     }
 
-    if (page === "login") return <AdminLogin onBack={() => setPage("home")} onLoginSuccess={() => {setIsLoggedIn(true); setPage("check");}} />;
+    if (page === "login") return <AdminLogin onBack={() => setPage("home")} onLoginSuccess={() => {setIsLoggedIn(true); setPage("check");}} apiUrl={API_URL} />;
     
     if (page === "booking") {
       if (!isUserLoggedIn) {
@@ -96,12 +102,12 @@ function App() {
           localStorage.setItem("isUserLoggedIn", "true");
           localStorage.setItem("userData", JSON.stringify(user));
           setPage("booking");
-        }} onSwitchToRegister={() => setPage("userRegister")} onBack={() => setPage("home")} />;
+        }} onSwitchToRegister={() => setPage("userRegister")} onBack={() => setPage("home")} apiUrl={API_URL} />;
       }
-      return <BookingPage onBack={() => setPage("home")} user={userData} />;
+      return <BookingPage onBack={() => setPage("home")} user={userData} apiUrl={API_URL} />;
     }
 
-    if (page === "check") return <CheckQueue onBack={() => setPage("home")} />;
+    if (page === "check") return <CheckQueue onBack={() => setPage("home")} apiUrl={API_URL} />;
 
     return (
       <div className="home-full-viewport">
@@ -120,7 +126,7 @@ function App() {
                     value={searchPhone}
                     onChange={(e) => setSearchPhone(e.target.value)}
                   />
-                  <button type="submit">ค้นหา</button>
+                  <button type="submit" disabled={isSearching}>{isSearching ? "กำลังค้นหา..." : "ค้นหา"}</button>
                 </form>
               </div>
 
@@ -156,12 +162,12 @@ function App() {
               </div>
               <div className="modal-body">
                 {searchResult.length > 0 ? searchResult.map(res => (
-                  <div key={res.id} className="status-row-v2" style={{ display: 'block', height: 'auto', marginBottom: '15px', padding: '15px' }}>
+                  <div key={res._id} className="status-row-v2" style={{ display: 'block', height: 'auto', marginBottom: '15px', padding: '15px' }}>
                     <div className="row-info" style={{ marginBottom: '10px' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                         <div>
                            <strong style={{ fontSize: '1.1rem', color: '#1a56db' }}>{res.service_type}</strong>
-                           <div style={{ fontSize: '0.85rem', color: '#666', margin: '4px 0' }}>ID: #{res.id}</div>
+                           <div style={{ fontSize: '0.85rem', color: '#666', margin: '4px 0' }}>ID: #{res._id}</div>
                         </div>
                         <span className={`pill-v2 ${
                           res.status === 'เสร็จสิ้น' ? 'done' : 

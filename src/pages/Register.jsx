@@ -27,10 +27,10 @@ function Register({ onSwitchToLogin, onBack }) {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/api/register", {
+      const res = await fetch(`${props.apiUrl}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dataToSend), // ส่งข้อมูลที่ Clean แล้ว
+        body: JSON.stringify(formData),
       });
       
       const data = await res.json();

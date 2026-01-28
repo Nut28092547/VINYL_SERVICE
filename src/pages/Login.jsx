@@ -15,7 +15,7 @@ function Login({ onLoginSuccess, onSwitchToRegister, onBack }) {
       };
 
       // ✅ เปลี่ยนเป็น user-login ตาม Endpoint ของคุณ
-      const res = await fetch("http://localhost:3000/api/user-login", {
+      const res = await fetch(`${props.apiUrl}/user-login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginData), // ส่งข้อมูลที่ Clean แล้ว

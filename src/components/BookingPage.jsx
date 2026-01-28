@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./BookingPage.css";
 
-const BookingPage = ({ onBack }) => {
+// ✅ รับ apiUrl มาจาก props (ที่ส่งมาจาก App.js)
+const BookingPage = ({ onBack, apiUrl }) => {
   const initialFormState = {
     name: "", phone: "", date: "", time: "", service: "",
     address_detail: "", sub_district: "", district: "", province: "", postcode: "", notes: ""
@@ -17,12 +18,15 @@ const BookingPage = ({ onBack }) => {
 
   const timeSlots = ["09:00", "12:00", "15:00"];
 
+  // ✅ เปลี่ยนเป็นใช้ apiUrl จาก Props
   const fetchAllBookings = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/all-bookings?t=${Date.now()}`);
+      const response = await fetch(`${apiUrl}/all-bookings?t=${Date.now()}`);
       const data = await response.json();
       setAllBookings(data || []);
-    } catch (error) { console.error("Error fetching bookings:", error); }
+    } catch (error) { 
+      console.error("Error fetching bookings:", error); 
+    }
   };
 
   useEffect(() => { fetchAllBookings(); }, []);
@@ -60,7 +64,7 @@ const BookingPage = ({ onBack }) => {
     try {
       const formData = new FormData();
       
-      // ✅ แก้ไขการส่งข้อมูล: ส่งแยกฟิลด์ตามที่ Backend และหน้า Admin รอรับ
+      // ✅ ส่งข้อมูลแยกฟิลด์ตามที่ Backend และหน้า Admin รอรับ
       formData.append("customer_name", form.name);
       formData.append("phone", form.phone);
       formData.append("service_type", form.service);
@@ -75,7 +79,8 @@ const BookingPage = ({ onBack }) => {
       
       if (selectedFile) formData.append("image", selectedFile);
 
-      const response = await fetch("http://localhost:3000/api/booking", {
+      // ✅ แก้ไข URL ให้ใช้ apiUrl จาก Props
+      const response = await fetch(`${apiUrl}/booking`, {
         method: "POST",
         body: formData,
       });
@@ -87,9 +92,13 @@ const BookingPage = ({ onBack }) => {
         setSelectedFile(null); 
         setPreviewUrl(null); 
       } else {
-        alert("❌ จองไม่สำเร็จ: ช่วงเวลานี้อาจถูกจองไปแล้ว");
+        const errorData = await response.json();
+        alert(`❌ จองไม่สำเร็จ: ${errorData.message || "ช่วงเวลานี้อาจถูกจองไปแล้ว"}`);
       }
-    } catch (error) { alert("❌ ติดต่อ Server ไม่ได้"); }
+    } catch (error) { 
+      console.error("Submit error:", error);
+      alert("❌ ไม่สามารถติดต่อเซิร์ฟเวอร์ได้ กรุณาตรวจสอบอินเทอร์เน็ต"); 
+    }
   };
 
   if (showSuccess) {
@@ -142,7 +151,7 @@ const BookingPage = ({ onBack }) => {
             </div>
             <div className="results-list">
               {searchResults.length > 0 ? searchResults.map((item) => (
-                <div key={item.id} className="result-item">
+                <div key={item._id || item.id} className="result-item">
                   <div className="item-details">
                     <p><strong>บริการ:</strong> {item.service_type}</p>
                     <p><strong>วันที่:</strong> {new Date(item.booking_date).toLocaleDateString('th-TH')} | <strong>เวลา:</strong> {item.booking_time} น.</p>
@@ -177,7 +186,6 @@ const BookingPage = ({ onBack }) => {
                 <input type="text" placeholder="แขวง/ตำบล" value={form.sub_district} onChange={(e) => setForm({...form, sub_district: e.target.value})} required />
                 <input type="text" placeholder="เขต/อำเภอ" value={form.district} onChange={(e) => setForm({...form, district: e.target.value})} required />
                 <input type="text" placeholder="จังหวัด" value={form.province} onChange={(e) => setForm({...form, province: e.target.value})} required />
-                {/* ✅ เพิ่มช่องรหัสไปรษณีย์ */}
                 <input type="text" placeholder="รหัสไปรษณีย์" value={form.postcode} onChange={(e) => setForm({...form, postcode: e.target.value})} required />
               </div>
             </div>
@@ -202,12 +210,11 @@ const BookingPage = ({ onBack }) => {
                 <option value="">เลือกประเภทบริการ...</option>
                 <option value="ติดตั้งประตู">ติดตั้งประตู (Vinyl Door)</option>
                 <option value="ติดตั้งหน้าต่าง">ติดตั้งหน้าต่าง (Vinyl Window)</option>
-                <option value="วัดหน้างาน">เช็คคุณภาพ / แก้ไขจุดบกผ่อง</option>
-                <option value="วัดหน้างาน">วัดหน้างาน / ประเมินราคา</option>
+                <option value="เช็คคุณภาพ / แก้ไขจุดบกพร่อง">เช็คคุณภาพ / แก้ไขจุดบกพร่อง</option>
+                <option value="วัดหน้างาน / ประเมินราคา">วัดหน้างาน / ประเมินราคา</option>
               </select>
             </div>
 
-            {/* ✅ เพิ่มฟิลด์หมายเหตุ (Notes) */}
             <div className="form-field">
               <label>หมายเหตุ / ข้อมูลเพิ่มเติม</label>
               <input type="text" placeholder="รายละเอียดเพิ่มเติมที่ต้องการแจ้งช่าง" value={form.notes} onChange={(e) => setForm({...form, notes: e.target.value})} />
