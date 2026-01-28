@@ -135,8 +135,8 @@ function App() {
           </div>
           
           <div className="hero-image-container">
-            <img src="https://scontent.fbkk13-1.fna.fbcdn.net/v/t39.30808-6/465140250_8769449093111937_1337892803750894764_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeH0B2Yx1nJw3wiU6xZQ7HjPDYnmfcCyt3ANieZ9wLK3cKBAUs58eE4PFd6ZPsY_ic1uhzyjChDOeLBsz4rv0Ahm&_nc_ohc=8eushvr31DoQ7kNvwGOFjuP&_nc_oc=Adm-b19OCjGk2d4-gTq-I2wkd206wHU4XoSxrk2lPNhqwiaeifJmNkZrExzRXvvUxHU&_nc_zt=23&_nc_ht=scontent.fbkk13-1.fna&_nc_gid=-ebctjxKZXzsND1z4hbyHA&oh=00_AfoREKXow-ujBYNGCnAb_9fsBKFR_Eo0nwPOuVnGaFgTgg&oe=697FFCA8" alt="Vinyl House" />
-            <div className="experience-box">
+             <img src="/assets/image/Win.jpg" alt="Vinyl House" />
+          <div className="experience-box">
               <h3>10+</h3>
               <p>Years Experience</p>
             </div>
